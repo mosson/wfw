@@ -30,8 +30,9 @@ import { Auth } from "middlewares/auth.ts";
 import { FooAction } from "actions/foo.ts";
 import { BarAction } from "actions/bar.ts";
 export async (app: Application) => {
-  app.get("/foo", [FooBarAction])
-  app.post("/bar", [Auth, BarBarAction])
+  app.get<{foo_value: string}>("/foo/:foo_value", [FooBarAction])
+  // request.bodyの型もGenericsで指定できる
+  app.post<{email: string}>("/bar", [Auth, BarBarAction])
   return app;
 }
 ```
